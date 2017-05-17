@@ -1,0 +1,325 @@
+.tree {
+    font-family: "Microsoft YaHei" !important;
+    display: inline-block;
+    text-align: left !important;
+    min-height: 20px;
+    padding: 10px;
+    background-color: #fff;
+    /*    border: 1px solid #8fdff7; */
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 0px 0px rgba(0, 0, 0, 0.05);
+    -moz-box-shadow: inset 0 0px 0px rgba(0, 0, 0, 0.05);
+    box-shadow: inset 0 0px 0px rgba(0, 0, 0, 0.05);
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-transition: all .5s;
+    -moz-transition: all .5s;
+    -ms-transition: all .5s;
+    -o-transition: all .5s;
+    transition: all .5s;
+}
+
+.tree .parent_li {
+    list-style:none;
+    -webkit-transition: opacity .4s , height .4s ;
+    -moz-transition: opacity .4s , height .4s;
+    -ms-transition: opacity .4s , height .4s;
+    -o-transition: opacity .4s , height .4s;
+    transition: opacity .4s , height .4s;
+}
+
+.tree > ul {
+    list-style:none;
+    padding: 0;
+    -webkit-transition: opacity .4s , height .4s;
+    -moz-transition: opacity .4s , height .4s;
+    -ms-transition: opacity .4s , height .4s;
+    -o-transition: opacity .4s , height .4s;
+    transition: opacity .4s , height .4s;
+}
+
+.padding_top .treeContent {
+    padding-top: 0 !important;
+    -webkit-transition: opacity .4s , height .4s;
+    -moz-transition: opacity .4s , height .4s;
+    -ms-transition: opacity .4s , height .4s;
+    -o-transition: opacity .4s , height .4s;
+    transition: opacity .4s , height .4s;
+}
+
+.tree li {
+    list-style-type: none;
+    margin: 0;
+    padding: 10px 5px 0 5px;
+    position: relative;
+    -webkit-transition: opacity .4s , height .4s;
+    -moz-transition: opacity .4s , height .4s;
+    -ms-transition: opacity .4s , height .4s;
+    -o-transition: opacity .4s , height .4s;
+    transition: opacity .4s , height .4s;
+}
+
+.tree li::before, .tree li::after {
+    content: '';
+    left: -20px;
+    position: absolute;
+    right: auto
+}
+
+.tree li::before {
+    border-left: 1px dashed #3FA7DC;
+    bottom: 50px;
+    height: 100%;
+    top: 0;
+    width: 1px
+}
+
+.tree li::after {
+    border-top: 1px dashed #3FA7DC;
+    height: 20px;
+    top: 25px;
+    width: 25px
+}
+
+.tree li span {
+    position: relative;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border: 1px solid #3FA7DC;
+    border-radius: 5px;
+    display: inline-block;
+    padding: 3px 8px;
+    text-decoration: none;
+    cursor: pointer;
+    color: #fff;
+    background-color: #3FA7DC;
+}
+
+.tree > ul > li::before, .tree > ul > li::after {
+    border: 0
+}
+
+.tree li:last-child::before {
+    height: 25px
+}
+
+.tree li.parent_li > span:hover, .tree li.parent_li > span:hover + ul li span {
+    background: #3FA7DC;
+    border: 1px solid #3FA7DC;
+    color: #fff
+}
+
+.tree li.parent_li span[pid='0'] {
+    z-index: 200;
+}
+
+.tree li.parent_li span[levels='1'] {
+    z-index: 100;
+}
+
+.tree li.parent_li span[levels='2'] {
+    z-index: 50;
+}
+
+.tree li.parent_li span[levels='3'] {
+    z-index: 40;
+}
+
+.tree li.parent_li span[levels='4'] {
+    z-index: 10;
+}
+
+.treeContent > ul > li > ul li {
+    display: none;
+}
+
+.active {
+    background: #fff !important;
+    border: 1px solid #3FA7DC !important;
+    opacity: .89;
+    color: #3FA7DC !important;
+}
+
+.treepopover em {
+    font-style: normal;
+    line-height: 14px;
+    margin-right: 6px;
+}
+
+/* popover CSS*/
+span > .popover {
+    font-family: "微软雅黑";
+    padding: 0;
+    /*display: inline-block;*/
+    top: -46px;
+    width: 100px;
+}
+
+span .popover-title {
+    color: #fff;
+    padding: 5px 20px;;
+    background: -webkit-linear-gradient(top, #293c55 0, #293c55);
+    background: linear-gradient(top, #3FA7DC 0, #3FA7DC);
+    background: -moz-linear-gradient(top, #293c55 0, #293c55);
+}
+
+span .popover-content {
+    padding: 3px;
+}
+
+.btn-info {
+    color: #fff;
+    background-color: #3FA7DC;
+    border-color: #3FA7DC;
+}
+
+.btn-info:hover {
+    opacity: .8;
+}
+
+.btn-danger {
+    color: #fff;
+    background-color: #ef6662;
+    border-color: #f5736f;
+}
+
+/*input ��ʽ*/
+.tree .input_check, .tree input[type=checkbox] {
+    position: absolute;
+    visibility: hidden;
+    top: 0;
+    margin: 0;
+}
+
+.tree label {
+    margin-right: 5px;
+    position: relative;
+    top: 8px;
+    left: 0;
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    border-radius: 3px;
+    border: 1px solid #d9d9d9;
+    background-color: #fff;
+    -webkit-transition: border-color .1s cubic-bezier(.71, -.46, .29, 1.46), background-color .1s cubic-bezier(.71, -.46, .29, 1.46);
+    transition: border-color .1s cubic-bezier(.71, -.46, .29, 1.46), background-color .1s cubic-bezier(.71, -.46, .29, 1.46);
+}
+
+.tree .inputItem {
+    overflow: hidden;
+    top: 8px;
+    height: 15px;
+    width: 15px;
+    display: inline-block;
+    position: relative;
+    border: 2px solid #3FA7DC;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    background: #3FA7DC;
+}
+
+.tree .notAllCheck {
+    overflow: hidden;
+    top: 8px;
+    height: 15px;
+    width: 15px;
+    display: inline-block;
+    position: relative;
+    border: 2px solid #7c7c7c;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    background: #7c7c7c;
+}
+
+.tree .notAllCheck:after {
+    display: inline-block;
+    content: "";
+    position: relative;
+    left: 0px;
+    bottom: 5px;
+    width: 11px;
+    height: 7px;
+    border: 2px solid #ffffff;
+    border-top-color: transparent;
+    border-right-color: transparent;
+    -ms-transform: rotate(-60deg);
+    -moz-transform: rotate(-60deg);
+    -webkit-transform: rotate(-60deg);
+    transform: rotate(-45deg);
+}
+
+.inputItem:after {
+    display: inline-block;
+    content: "";
+    position: relative;
+    left: 0px;
+    bottom: 8px;
+    width: 11px;
+    height: 7px;
+    border: 2px solid #ffffff;
+    border-top-color: transparent;
+    border-right-color: transparent;
+    -ms-transform: rotate(-60deg);
+    -moz-transform: rotate(-60deg);
+    -webkit-transform: rotate(-60deg);
+    transform: rotate(-45deg);
+}
+
+/*modal CSS*/
+
+.modal-header {
+    -webkit-border-radius: 10px 10px 0 0;
+    -moz-border-radius: 10px 10px 0 0;
+    border-radius: 10px 10px 0 0;
+    color: #fff;
+    padding: 8px;
+    background: -webkit-linear-gradient(top, #3FA7DC 0, #3FA7DC);
+    background: linear-gradient(top, #3FA7DC 0, #3FA7DC);
+    background: -moz-linear-gradient(top, #3FA7DC 0, #3FA7DC);
+}
+
+.modal-footer {
+    padding: 5px;
+}
+
+#treeMsg {
+    position: absolute;
+    top: -30px;
+    left: 0;
+    /*visibility: hidden;*/
+    z-index: 1050;
+    opacity: 0;
+    transition: opacity 0.5s linear;
+    line-height: 20px;
+    text-align: left;
+}
+
+.alert-danger strong {
+    margin-right: 15px;
+    font-size: 14px;
+    color: #ef6662;
+}
+
+.alert-info strong {
+    margin-right: 15px;
+    font-size: 14px;
+    color: #31708f;
+}
+
+.alert-dismissible .close {
+    right: 0;
+}
+
+.btnBar {
+    padding: 0;;
+}

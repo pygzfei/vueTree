@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="myTree.css">
+    <script src="vue2.20.js"></script>
+</head>
+<style>
+
+    .close {
+        /*可加display : none;  但动画效果没了*/
+        display: none;
+        list-style-type: none;
+        /* visibility: hidden;
+         opacity: 0;
+         width:0;
+         height:0;
+         -webkit-transition: opacity .4s , height .4s;
+         -moz-transition: opacity .4s , height .4s;
+         -ms-transition: opacity .4s , height .4s;
+         -o-transition: opacity .4s , height .4s;
+         transition: opacity .4s , height .4s;*/
+    }
+
+    .open {
+        display: list-item;
+        list-style-type: none;
+        /*visibility: visible;
+        opacity: 1;
+        width:100%;
+        height:100%;
+        -webkit-transition: opacity .4s , height .4s;
+        -moz-transition: opacity .4s , height .4s;
+        -ms-transition: opacity .4s , height .4s;
+        -o-transition: opacity .4s , height .4s;
+        transition: opacity .4s , height .4s;*/
+    }
+
+</style>
+<!---->
+<template id="treecontent">
+    <li :class="{parent_li:true}">
+        <label :class="{inputItem : ischeck}" v-if="!isfirst" @click.prevent="ischeckBox(item)">
+            <input type="checkbox" :checked="ischeck" class="input_check">
+        </label>
+        <span :id="item.id" :pid="item.pid" @click="toggle(item)" v-hover="item"
+              :class="{active : item.id == currid.currIndex && !isfirst}">
+                    <i :class="[clazz]"></i>
+                    {{item.name}}
+                </span>
+        <!-- 如果当前元素id 和 当前所选currid 相同  并且 !!! 父级id 不能为 0  则打开 isfirst是为顶级节点打开准备的-->
+        <ul v-if="!islast" :class="ulIsShow ? 'open' : 'close'">
+            <!-- 子组件props 下 叫currid 递归即传递该值 -->
+            <treecontent :item="elem" v-for="(elem,index) in item.children" :checkeditems="checkeditems"
+                         :checkbox="checkbox" :click="click" :key="index"
+                         :currid="currid"></treecontent>
+        </ul>
+    </li>
+</template>
+
+
+<template id="mytree">
+    <div>
+        <div class="tree col-md-14">
+            <ul v-for="(items,index) in node" :key="index">
+                <!--
+                    :currid.sync="currIndex"
+                    给所有子组件同步currIndex属性 ---- 子组件修改,自动同步父组件
+                 -->
+                <treecontent :item="items" :currid="curr" :checkeditems="checkItems" :checkbox="checkbox"
+                             :click="click"></treecontent>
+            </ul>
+
+            <div class="popover treepopover right" id="meuns" style="position: absolute;display: none;">
+                <div class="arrow"></div>
+                <h3 class="popover-title">选择操作</h3>
+                <div class="popover-content">
+                    <button class="os btn-xs btn btn-info btn-block" @click="addos">
+                        <em class="glyphicon glyphicon-plus"></em>添加
+                    </button>
+                    <button class="os btn-xs btn btn-info btn-block" @click="editos">
+                        <em class="glyphicon glyphicon-pencil"></em>修改
+                    </button>
+                    <button class="os btn-xs btn btn-danger btn-block" @click="delos">
+                        <em class="glyphicon glyphicon-remove"></em>
+                        删除
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<body>
+<div id="demo">
+    <div class="col-md-6">   <!-- 点击事件   是否checkbox模式   add事件  修改事件  删除事件  -->
+        <mytree :node="datas" :click="click" :clickcheckbox="checkedbox" :checkbox="true" :add="add" :edit="edit"
+                :del="del"></mytree>
+    </div>
+    <div style="height: 100px;width: 100px;margin: 30px auto;">
+        <ul class="list-group">
+            <li id="box" class="list-group-item" style="width: 200px;height: 50px;line-height: 50px;padding: 0;"></li>
+        </ul>
+
+        <ul class="list-group">
+            <li class="list-group-item"
+                v-for="item in allitems"
+                style="width: 200px;height: 50px;line-height: 50px;padding: 0;" >
+                选中了 --> {{item.name}}
+            </li>
+        </ul>
+
+    </div>
+
+</div>
+
+
+</body>
+<script src="VueTree.js"></script>
+</html>
