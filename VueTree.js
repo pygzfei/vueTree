@@ -113,6 +113,14 @@ function uniqeByKeys(array, keys) {
     return arr;
 }
 
+//所有父节点设置为显示
+function parentAllShow(parent) {
+    parent.$data.show = true;
+    parent.$data.open = true;
+    if (parent.$parent) {
+        parentAllShow(parent.$parent)
+    }
+}
 
 //单一事件管理 -- > 传递组件间的变量
 var events = new Vue();
@@ -136,8 +144,11 @@ Vue.directive('hover', {
 
             var meun = document.getElementById('meuns');
             meun.style.display = 'block';
+
+            var treeMarginTop = getTop(document.getElementById('tree'));
+
             var meunHeight = meun.clientHeight;
-            meun.style.top = (y - (meunHeight / 2)) + 'px';
+            meun.style.top = (y - (meunHeight / 2) - treeMarginTop) + 'px';
             meun.style.left = x + 'px';
 
             events.$emit('contextData', binding.value);
@@ -162,8 +173,8 @@ var treecontent = Vue.component('treecontent', {
     },
     methods: {
         toggle: function (node) {
+            //如果是父节点 直接 return
             if (node.pid == 0) return;
-
 
             if (this.open && this.show) {
                 //如果open为true , 而且 选中的span是当前的,open为true
@@ -178,9 +189,13 @@ var treecontent = Vue.component('treecontent', {
             events.$emit('show', node);
             //同时只能打开一个组件
 
+            console.log(this.$parent)
+
+            parentAllShow(this.$parent);
+
             //父组件的show  open 为真
-            this.$parent.$data.show = true;
-            this.$parent.$data.open = true;
+            /*this.$parent.$data.show = true;
+             this.$parent.$data.open = true;*/
             this.show = !this.show;
             this.currid.currIndex = node.id;
             this.click ? this.click(node) : '';
@@ -287,8 +302,7 @@ var treecontent = Vue.component('treecontent', {
 
             events.$emit('checkClick', this.checkeditems);
 
-
-        }
+        },
     },
     computed: {
         clazz: function () { //图标class
@@ -314,7 +328,8 @@ var treecontent = Vue.component('treecontent', {
             return ((this.item.pid != 0 && this.currid.isOpen && this.open && this.show) || this.isfirst);
         }
     },
-    updated: function () { //2.0新增钩子,视图触发更新后,则自动执行该方法
+    updated: function () {
+        //2.0新增钩子,视图触发更新后,则自动执行该方法
         //视图更新过后 全局的currid.isOpen = false; 这样再次点击后,图标 + 和 -正常
         // this.show = false;
     },
@@ -365,6 +380,7 @@ var mytree = Vue.component('mytree', {
     mounted: function () {
         events.$on('contextData', function (data) {
             this.contextData = data;
+            console.log(data)
         }.bind(this));
 
         events.$on('changeCurrId', function (id) {
